@@ -64,8 +64,10 @@
 						type="Navigation"
 						press=".onSelectionChange"
 						title="{CompanyName}"
+						number="{BusinessPartnerID}"
 >
 					</ObjectListItem>
+					<!-- <Text text="{BusinessPartnerID}" /> -->
 				</items>
 			</List>
 		</semantic:content>

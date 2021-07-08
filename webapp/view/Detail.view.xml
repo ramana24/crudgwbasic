@@ -33,7 +33,7 @@
 							titleStyle="H3"
 							level="H3"/>
 
-                            <Button text="Create" press="onCreate"></Button>
+                            <Button text="Create" press="onCreateRecord"></Button>
                                <Button text="Read" press="onRead"></Button>
                              <Button text="Update" press="onUpdate"></Button>
                                <Button text="Delete" press="onDelete"></Button>

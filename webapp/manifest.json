@@ -19,7 +19,9 @@
 				"settings": {
 					"odataVersion": "2.0",
 					"localUri": "localService/metadata.xml"
-				}
+					
+				},
+				"useBatch":"false"
 			}
 		}
 	},

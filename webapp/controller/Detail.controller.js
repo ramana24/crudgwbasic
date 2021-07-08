@@ -35,15 +35,66 @@ sap.ui.define([
 
 			this.getOwnerComponent().getModel().metadataLoaded().then(this._onMetadataLoaded.bind(this));
         },
+
+
+		onCreateRecord:function(oEvent){
+			var oParentContext,
+			oModel = this.getView().getModel();
+		
+		oParentContext = oModel.createEntry("BusinessPartnerSet", {
+		   properties : {
+			
+			
+				Address: {
+				 
+				  City: "Chennai12",
+				  PostalCode: "510613",
+				  Street: "No. 233 Tien He Road North",
+				  Building: "6402-6403a",
+				  Country: "CN",
+				  AddressType: "02"
+				},
+				BusinessPartnerID: "0100000004",
+				CompanyName: "ChinaChain",
+				WebAddress: "t.comy",
+				EmailAddress: "customer125@t.com",
+				PhoneNumber: "+86 20 86454650",
+				FaxNumber: "+86 20 86454004",
+				LegalForm: "WFOE",
+				CurrencyCode: "USD",
+				BusinessPartnerRole: "01",
+				CreatedAt: "/Date(1625709646000)/",
+				ChangedAt: "/Date(1625709646000)/",
+				ToSalesOrders: {
+				 
+				},
+				ToContacts: {
+				 
+				},
+				ToProducts: {
+				 
+				}
+			  
+			  
+		   },
+		   success : function () {
+		//	console.log("successfully record entered");
+		   }
+		});
+		
+		oModel .setUseBatch(false);
+		oModel.submitChanges();
+
+		},
         
         onCreate:function(oEvent){
 
 //var oModelPartner= new ODataModel();
 
-  var oModelPartner = this.getView().getModel();
+  var oModel = this.getView().getModel();
 //var O={};
             var oKey="0100000000";
-            var oData = {
+            var oSaledData = {
    "SalesOrderID": "0500000099",
 "Note": "EPM DG: SO ID 0500000015",
 "NoteLanguage": "",
@@ -64,16 +115,90 @@ sap.ui.define([
 };
 
 //O.push(oData);
-oModelPartner.create("/BusinessPartnerSet('0100000000')/ToSalesOrders", oData, 
-function(oSuccess){
-    console.log("success");
-},
-function(oError){
-console.log("error");
-}
+// oModelPartner.createEntry("/BusinessPartnerSet('0100000000')/ToSalesOrders", oData, 
+// function(oSuccess){
+//     console.log("success");
+// },
+// function(oError){
+// console.log("error");
+// }
 
-);
-        },
+// );
+      
+
+//Deep Create
+
+var oParentContext,
+ //var   oModel = this.getView().getModel();
+
+oParentContext = oModel.createEntry("/BusinessPartnerSet", {
+   properties : {
+	
+		"__metadata": {
+		  "id": "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/BusinessPartnerSet('0100000004')",
+		  "uri": "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/BusinessPartnerSet('0100000004')",
+		  "type": "GWSAMPLE_BASIC.BusinessPartner",
+		  "etag": "W/\"datetime'2021-07-08T02%3A00%3A46.0000000'\""
+		},
+		"Address": {
+		  "__metadata": {
+			"type": "GWSAMPLE_BASIC.CT_Address"
+		  },
+		  "City": "New Delhi",
+		  "PostalCode": "510613",
+		  "Street": "No. 233 Tien He Road North",
+		  "Building": "6402-6403a",
+		  "Country": "CN",
+		  "AddressType": "02"
+		},
+		"BusinessPartnerID": "0100000004",
+		"CompanyName": "FioriUX",
+		"WebAddress": "http://www.chinachain.test.com",
+		"EmailAddress": "customer2@sap.com",
+		"PhoneNumber": "+86 20 86454650",
+		"FaxNumber": "+86 20 86454004",
+		"LegalForm": "WFOE",
+		"CurrencyCode": "USD",
+		"BusinessPartnerRole": "01",
+		"CreatedAt": "/Date(1625709646000)/",
+		"ChangedAt": "/Date(1625709646000)/",
+		"ToSalesOrders": {
+		  "__deferred": {
+			"uri": "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/BusinessPartnerSet('0100000004')/ToSalesOrders"
+		  }
+		},
+		"ToContacts": {
+		  "__deferred": {
+			"uri": "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/BusinessPartnerSet('0100000004')/ToContacts"
+		  }
+		},
+		"ToProducts": {
+		  "__deferred": {
+			"uri": "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/BusinessPartnerSet('0100000004')/ToProducts"
+		  }
+		}
+	  
+   },
+   success : function () {
+      oChildContext = oModel.createEntry("ToSalesOrders", {
+         context : oParentContext,
+         properties : 
+            // properties for the new item of the new sales order
+
+			oSaledData
+         ,
+         success : function () {
+            // ...
+         }
+      });
+      oModel.submitChanges();
+   }
+});
+
+oModel.submitChanges();
+
+
+},
 
 
 
